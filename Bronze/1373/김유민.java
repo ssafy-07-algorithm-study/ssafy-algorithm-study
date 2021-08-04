@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+// 메모리 : 23692KB, 시간 : 388ms
 public class Main {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
