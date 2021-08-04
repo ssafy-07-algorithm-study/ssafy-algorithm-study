@@ -1,7 +1,5 @@
 package argust.oneweek;
-
-// 67792KB	380ms
-
+// 67596KB 356ms
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -21,15 +19,15 @@ public class B_1913_달팽이 {
 
 		int start = N / 2; // 정중앙
 		map[start][start] = cnt++; // 정중앙 1 입력 - 시작점
-		if (target == 1) { // ** keyPoint **
-			result[0] = start + 1;
-			result[1] = start + 1;
-		}
 		solve(start, start, 1, 0); // 시작좌표,일직선횟수, 방향
 
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
+				if (map[i][j] == target) {
+					result[0] = i + 1;
+					result[1] = j + 1;
+				}
 				sb.append(map[i][j]).append(" ");
 			}
 			sb.append("\n");
@@ -46,10 +44,6 @@ public class B_1913_달팽이 {
 					return;
 				y += dir[d][0];
 				x += dir[d][1];
-				if (cnt == target) {
-					result[0] = y + 1;
-					result[1] = x + 1;
-				}
 				map[y][x] = cnt++;
 			}
 			d = (d + 1) % 4;
