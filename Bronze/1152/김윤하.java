@@ -1,3 +1,4 @@
+// 25312KB, 320ms
 package b2_1152;
 
 import java.io.BufferedReader;

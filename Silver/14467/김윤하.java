@@ -1,3 +1,4 @@
+// 14156KB, 132ms
 package s5_14467;
 
 import java.io.BufferedReader;
