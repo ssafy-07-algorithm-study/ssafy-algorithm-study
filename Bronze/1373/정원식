@@ -1,0 +1,33 @@
+// 22892 KB		368 ms
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Baek_1373_2진수8진수3 {
+	public static void main(String[] args) throws IOException {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		String s = new String(in.readLine());
+		int len = s.length();
+		int sum = 0;
+		if(s.length()%3 == 2) {
+			s = "0"+s;
+			len++;
+		} else if(s.length()%3 == 1) {
+			s = "00"+s;
+			len += 2;
+		}
+		
+		int mul = 2;
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < len; i++) {
+			sum += (int) (Math.pow(2, mul)*(s.charAt(i)-'0'));
+			mul--;
+			if(mul==-1) {
+				sb.append(sum);
+				sum=0;
+				mul=2;
+			}
+		}
+		System.out.println(sb);
+	}
+}
