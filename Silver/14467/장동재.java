@@ -1,3 +1,4 @@
+// 17844KB	240ms
 package week01;
 
 import java.util.Scanner;
