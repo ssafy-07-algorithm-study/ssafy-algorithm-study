@@ -1,3 +1,4 @@
+// 30492KB	420ms
 package week01;
 
 import java.io.BufferedReader;
