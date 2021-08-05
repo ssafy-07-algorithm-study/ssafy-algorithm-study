@@ -13,7 +13,7 @@ public class B_1373_2진수8진수 {
 		StringBuilder sb = new StringBuilder();
 		String str = in.readLine();
 		Stack<Integer> stack = new Stack<>();
-		for (int i = 0; i < str.length(); i++) { // 배열 반대로 넣음
+		for (int i = 0; i < str.length(); i++) { 
 			stack.push(str.charAt(i) - '0');
 		}
 		List<Integer> result = new ArrayList<Integer>();
