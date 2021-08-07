@@ -21,3 +21,4 @@ public class BOJ_2750_수정렬하기 {
 		System.out.println(sb);
 	}
 }
+
