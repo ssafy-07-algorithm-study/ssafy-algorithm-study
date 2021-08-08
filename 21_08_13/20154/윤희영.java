@@ -2,7 +2,7 @@ package com.ssafy;
 
 import java.io.*;;
 
-public class �̱����ǽ��ڴ´��� {
+public class ÀÌ±¸¿ªÀÇ½ÂÀÚ´Â´©±¸ {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
