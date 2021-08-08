@@ -2,14 +2,14 @@ package com.ssafy;
 
 import java.io.*;
 
-public class ¼öÁ¤·ÄÇÏ±â {
+public class ìˆ˜ì •ë ¬í•˜ê¸° {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int ca = Integer.parseInt(br.readLine());
 		int arr[] = new int[ca];
 		int brr[] = new int[ca];
-		for(int test =0 ; test < ca; test++) { //arr ¹è¿­¿¡ °ªÀ» Ãß°¡ÇÏ´Â ºÎºÐ
+		for(int test =0 ; test < ca; test++) { //arr ë°°ì—´ì— ê°’ì„ ì¶”ê°€í•˜ëŠ” ë¶€ë¶„
 			arr[test] = Integer.parseInt(br.readLine());
 		}
 		
@@ -17,7 +17,7 @@ public class ¼öÁ¤·ÄÇÏ±â {
 		int x = 0;
 		for(int t = 0; t < ca; t++) {
 			
-			for(int test =0 ; test < ca; test++) { // Ãß°¡ µÈ ¹è¿­¿¡¼­ ÃÖ¼Ò°ªÀ» Ã£¾Æ³½ ´ÙÀ½ ±×ÀÚ¸®¿¡ ÃÖ´ë¼ö¸¦ ³Ö¾î¹ö¸².
+			for(int test =0 ; test < ca; test++) { // ì¶”ê°€ ëœ ë°°ì—´ì—ì„œ ìµœì†Œê°’ì„ ì°¾ì•„ë‚¸ ë‹¤ìŒ ê·¸ìžë¦¬ì— ìµœëŒ€ìˆ˜ë¥¼ ë„£ì–´ë²„ë¦¼.
 				if(arr[test]<min) {
 					min = arr[test];
 				}
