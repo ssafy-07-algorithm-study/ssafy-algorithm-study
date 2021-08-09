@@ -1,0 +1,75 @@
+package com.ssafy.day6;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class 체스판다시칠하기 {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		char[][] input = new char[N][M];
+		for (int i = 0; i < N; i++) {
+			String a = br.readLine();
+			for (int j = 0; j < M; j++) {
+				input[i][j] = a.charAt(j);
+			}
+		}
+
+//		char[][] black = new char[N][M];
+//		char[][] white = new char[N][M];
+		char flag = 'B'; // false면 검
+		int cnt = 0;
+		int min = Integer.MAX_VALUE;
+
+		// 왼쪽위 끝이 검은색인 경우
+		for (int i = 0; i < N - 7; i++) {
+			for (int j = 0; j < M - 7; j++) {
+				cnt = 0;
+				for (int p = i; p < i+8; p++) {
+					flag = (p-i) % 2 == 0 ? 'B' : 'W';
+					for (int q = j; q < j+8; q++) {
+						if (input[p][q] != flag) {
+//					System.out.println(i+" "+j+ "  "+flag);
+							cnt++;
+						}
+						if (flag == 'B')
+							flag = 'W';
+						else
+							flag = 'B';
+					}
+				}
+				min = Math.min(min, cnt);
+			}
+		}
+
+		for (int i = 0; i < N - 7; i++) {
+			for (int j = 0; j < M - 7; j++) {
+				cnt = 0;
+				for (int p = i; p < i+ 8; p++) {
+					flag = (p-i) % 2 == 0 ? 'W' : 'B';
+					for (int q = j; q < j+ 8; q++) {
+
+						if (input[p][q] != flag)
+							cnt++;
+						if (flag == 'B')
+							flag = 'W';
+						else
+							flag = 'B';
+					}
+
+				}
+//				System.out.println(cnt);
+				min = Math.min(min, cnt);
+			}
+		}
+
+		System.out.println(min);
+
+	}
+
+}
