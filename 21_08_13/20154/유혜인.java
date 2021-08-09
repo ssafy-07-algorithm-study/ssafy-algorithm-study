@@ -16,11 +16,5 @@ public class 이구역의승자는누구야 {
 		for(int i=0;i<len;i++) {
 			sum += alpha[a.charAt(i)- 65];
 		}
-		if(sum %2 == 0) {
-			System.out.println("You're the winner?");
-		}else {
-			System.out.println("I'm a winner!");
-		}
-	}
-
+		if(sum %2 == 0) {/
 }
