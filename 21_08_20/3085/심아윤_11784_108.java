@@ -23,9 +23,10 @@ public class B_3085_사탕게임 {
 
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
-//				if (j + 1 < N && arr[i][j] != arr[i][j + 1]) {
+//				if (j + 1 < N && arr[i][j] != arr[i][j + 1]) { // 바꾸지 않았을 경우를 포함하여 계산하기 위해
 				if (j + 1 < N) {
 					temp(i, j, i, j + 1); // 수평
+					// 바꾸는 부분에 영향을 받는 부분의 행과 열만 계산
 					Max = Math.max(Max, verticality(j)); // 수직
 					Max = Math.max(Max, verticality(j + 1));
 					Max = Math.max(Max, horizontality(i)); // 수평
@@ -53,7 +54,7 @@ public class B_3085_사탕게임 {
 				cnt++;
 			else
 				cnt = 1;
-			mmax = Math.max(mmax, cnt);
+			mmax = Math.max(mmax, cnt); // 이렇게 해야지 1로 바뀌어도 최댓값을 실시간으로 계산할 수 있다.
 		}
 		return mmax;
 	}
