@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		long n = sc.nextLong();
+		long sum = 0;
+		long count = 0;
+		for(long i=1;;i++) {
+			sum+= i;
+			count++;
+			if(sum > n)	break;
+		}
+		System.out.println(count-1);
+	
+
+	}
+	
+
+
+}
