@@ -1,0 +1,54 @@
+package com.ssafy.day17;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class 칸토어집합_4779 {
+//	https://www.acmicpc.net/problem/4779
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		StringBuilder sb = new StringBuilder();
+		String str;
+
+		while((str = br.readLine()) != null) {
+			int n = Integer.parseInt(str);
+			int num = (int)Math.pow(3, n);
+			char[] lines = new char[num];
+			for(int i=0;i<num;i++) {
+				lines[i] = '-';
+			}
+			
+			recursive(num,0, lines);
+//			System.out.println(Arrays.toString(lines));
+			for(int i=0;i<num;i++) {
+				sb.append(lines[i]);
+			}
+			sb.append("\n");
+		}
+		
+		
+		System.out.println(sb.toString());
+	}
+
+	private static void recursive(int num, int start, char[] lines) {
+		if(num == 1) {
+//			System.out.println(Arrays.toString(lines));
+			return;
+		}
+		
+		int divide = num /3;
+		
+		for(int i=start+divide;i<start + divide*2;i++) {
+			lines[i] = ' ';
+		}
+		recursive(divide, start ,lines);
+		recursive(divide, start+ divide*2, lines);
+
+	}
+
+}
