@@ -1,0 +1,61 @@
+package com.ssafy.day18;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class DNA_1969 {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());	// DNA 수
+		int M = Integer.parseInt(st.nextToken());	// DNA 길이
+		
+		int[][] list = new int[M][4];
+		char[][] dna = new char[N][M];
+		
+		for(int i=0;i<N;i++) {
+			String temp = br.readLine();
+			for(int j=0;j<M;j++) {
+				char a = temp.charAt(j);
+				dna[i][j] = a;
+				if(a == 'A')	list[j][0]++;
+				else if(a== 'C')	list[j][1]++;
+				else if(a=='G')	list[j][2]++;
+				else	list[j][3]++;
+			}
+		}
+		
+		
+		StringBuilder sb = new StringBuilder();
+		for(int i=0;i<M;i++) {
+			int max = -1;
+			int maxIdx = 0;
+			for(int j=0;j<4;j++) {
+				if(list[i][j] > max) {
+					max = list[i][j];
+					maxIdx = j;
+				}
+			}
+			if(maxIdx == 0)	sb.append("A");
+			else if(maxIdx == 1)	sb.append("C");
+			else if(maxIdx == 2)	sb.append("G");
+			else	sb.append("T");
+		}
+		
+		System.out.println(sb.toString());
+		
+		int cnt = 0;
+		for(int i=0;i<N;i++) {
+			for(int j=0;j<M;j++) {
+				if(dna[i][j] != sb.charAt(j))	cnt++;
+			}
+		}
+		
+		System.out.println(cnt);
+
+	}
+
+}
