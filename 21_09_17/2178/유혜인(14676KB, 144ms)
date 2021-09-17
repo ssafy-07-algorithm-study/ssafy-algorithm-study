@@ -1,0 +1,72 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		
+		int[][] map = new int[n][m];
+		
+		for(int i=0;i<n;i++) {
+			String a = br.readLine();
+			for(int j=0;j<m;j++) {
+				map[i][j] = a.charAt(j) -'0';
+			}
+		}
+		
+		bfs(map, n, m);
+
+	}
+
+	private static void bfs(int[][] map, int n, int m) {
+		int[] dx = {0,0,-1,1};
+		int[] dy = {-1,1,0,0};
+		
+		int[][] visited = new int[n][m];
+		Queue<int[]> q = new LinkedList<>();
+		q.add(new int[] {0,0, 1});
+		
+		while(!q.isEmpty()) {
+			int[] cur = q.poll();
+			int x = cur[0];
+			int y = cur[1];
+			int cnt = cur[2];
+			
+			for(int i=0;i<4;i++) {
+				int nx = x + dx[i];
+				int ny = y + dy[i];
+				
+				if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+				if(map[nx][ny] == 0)	continue;
+				if(visited[nx][ny] == 0) {
+					visited[nx][ny] = cnt +1;
+					q.add(new int[] {nx, ny, cnt + 1});
+				}
+				else {
+					if(cnt + 1 < visited[nx][ny]) {
+						visited[nx][ny] = cnt +1;
+						q.add(new int[] {nx, ny, cnt + 1});
+					}
+				}
+				
+			}
+			
+			
+			
+		}
+		
+		System.out.println(visited[n-1][m-1]);
+		
+		
+	}
+
+}
