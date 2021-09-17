@@ -1,0 +1,77 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+	public static class Point {
+		int x;
+		int y;
+
+		public Point(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		char[][] arr = new char[3][];
+		arr[0] = new char[] { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' };
+		arr[1] = new char[] { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' };
+		arr[2] = new char[] { 'z', 'x', 'c', 'v', 'b', 'n', 'm' };
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+		char l = st.nextToken().charAt(0);
+		char r = st.nextToken().charAt(0);
+
+		Point left = new Point(0,0);
+		Point right = new Point(0,0);
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				if (arr[i][j] == l)
+					left = new Point(i, j);
+				if (arr[i][j] == r)
+					right = new Point(i, j);
+			}
+		}
+		
+		String word = br.readLine();
+
+		int len = word.length();
+		int distance = 0;
+		for (int k = 0; k < len; k++) {
+			int w = word.charAt(k);
+
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < arr[i].length; j++) {
+					boolean flag = false; // true면 오른쪽
+					if (arr[i][j] == w) {
+						if (j > 4 || w == 'b')
+							flag = true;
+						if (flag) {
+							distance += Math.abs(i - right.x) + Math.abs(j - right.y);
+							distance +=1;
+//							System.out.println("right : "+distance);
+							right.x = i;
+							right.y = j;
+							
+						}else {
+							distance += Math.abs(i - left.x)+Math.abs(j - left.y);
+//							System.out.println("left : "+distance);
+							distance+=1;
+							left.x = i;
+							left.y = j;
+						}
+					}
+				}
+			}
+			
+		}
+		
+		System.out.println(distance);
+
+	}
+
+}

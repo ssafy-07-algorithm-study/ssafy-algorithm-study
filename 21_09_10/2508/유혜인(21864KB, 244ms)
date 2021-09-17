@@ -1,0 +1,90 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+	static int r, c;
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int tc = Integer.parseInt(br.readLine());
+		
+		for(int t=0;t<tc;t++) {
+			br.readLine();
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			r = Integer.parseInt(st.nextToken());
+			c = Integer.parseInt(st.nextToken());
+			
+			int[][] arr = new int[r][c];
+			
+			for(int i=0;i<r;i++) {
+				String s = br.readLine();
+				for(int j=0;j<c;j++) {
+					char a = s.charAt(j);
+					arr[i][j] = a;
+				}
+			}
+			
+			// . : 46
+			// o : 111
+			// < : 60
+			// > : 62
+			// v : 118
+			// ^ : 94
+			int candy = 0;
+			for(int i=0;i<r;i++) {
+				for(int j=0;j<c;j++) {
+					if(arr[i][j] == 62) {
+						if(check(i,j, 0, arr))	candy++;
+					}
+					else if(arr[i][j] == 118) {
+						if(check(i,j, 1, arr))	candy++;
+					}
+					
+//					print(arr);
+//					System.out.println();
+				}
+			}
+			
+			System.out.println(candy);
+		}
+
+	}
+
+	private static void print(int[][] arr) {
+		for(int i=0;i<r;i++) {
+			for(int j=0;j<c;j++) {
+				System.out.print(arr[i][j]+" ");
+			}
+			System.out.println();
+		}
+		
+	}
+
+	private static boolean check(int x, int y, int dir, int[][] arr) {
+		
+		if(dir == 0) {
+			if(y+2 >= c)	return false;
+			if(arr[x][y+1] == 111 && arr[x][y+2] == 60) {
+				arr[x][y] = -1;
+				arr[x][y+1] = -1;
+				arr[x][y+2] = -1;
+				return true;
+			}
+		}
+		
+		if(dir == 1) {
+			if(x+2 >= r)	return false;
+			if(arr[x+1][y] == 111 && arr[x+2][y] == 94) {
+				arr[x][y] = -1;
+				arr[x+1][y] = -1;
+				arr[x+2][y] = -1;
+				return true;
+			}
+		}
+		
+		
+		return false;
+	}
+
+}
