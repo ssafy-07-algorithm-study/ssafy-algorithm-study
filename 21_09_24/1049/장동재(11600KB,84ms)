@@ -1,0 +1,35 @@
+package week08;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class BOJ1049 {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int N = Integer.parseInt(st.nextToken()), M = Integer.parseInt(st.nextToken());
+		
+		int[] a = new int[M];
+		int[] b = new int[M];
+		
+		for (int i = 0; i < M; i++) {
+			st = new StringTokenizer(br.readLine());
+			a[i] = Integer.parseInt(st.nextToken());
+			b[i] = Integer.parseInt(st.nextToken());
+		}
+		
+		Arrays.sort(a); Arrays.sort(b);
+		// 1. 묶음
+		int result = N % 6 == 0 ? a[0] * (N / 6) : a[0] * (N / 6 + 1);
+		// 2. 묶음 + 단품
+		int result2 = a[0] * (N / 6) + b[0] * (N % 6);
+		// 3. 단품
+		int result3 = b[0] * N;
+		
+		System.out.println(Math.min(result, Math.min(result2, result3)));
+	}
+}
