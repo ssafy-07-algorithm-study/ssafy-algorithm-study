@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int n = Integer.parseInt(st.nextToken());	//끊어진 기타줄 개수
+		int m = Integer.parseInt(st.nextToken());	//기타줄 브랜드 개수
+		
+		int[] set = new int[m];
+		int[] one = new int[m];
+		for(int i=0;i<m;i++) {
+			st = new StringTokenizer(br.readLine());
+			set[i] = Integer.parseInt(st.nextToken());
+			one[i] = Integer.parseInt(st.nextToken());
+		}
+		
+		Arrays.sort(set);
+		Arrays.sort(one);
+		
+		int min = Integer.MAX_VALUE;
+		
+		int num = (int)Math.ceil(n/6.0) * set[0];	//세트로만 구매
+		min = Math.min(min, num);
+		
+		num = (n/6) * set[0] + (n%6) * one[0];
+		min = Math.min(min, num);
+		num = one[0] * n;
+		min = Math.min(min, num);
+		
+		System.out.println(min);
+		
+	}
+
+}
