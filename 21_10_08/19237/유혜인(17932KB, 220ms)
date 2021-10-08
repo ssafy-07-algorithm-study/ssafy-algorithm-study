@@ -1,0 +1,200 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+public class 백준_어른상어 {
+	static class Point {
+		int x;
+		int y;
+		int t;
+		int dir;
+
+		// 성어 좌표 x,y 상어번호 num, 남은 시간 t
+		public Point(int x, int y, int t, int dir) {
+			this.x = x;
+			this.y = y;
+			this.t = t;
+			this.dir = dir;
+		}
+
+		@Override
+		public String toString() {
+			return "Point [x=" + x + ", y=" + y + ", t=" + t + ", dir=" + dir + "]";
+		}
+
+	}
+
+	static int N, M, K;
+	static HashMap<Integer, Point> sharks;
+	static int[][][] prior;
+	static int[] dx = { 0, -1, 1, 0, 0 }; // 상하좌우 1234
+	static int[] dy = { 0, 0, 0, -1, 1 };
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+		N = Integer.parseInt(st.nextToken()); // 지도 크기
+		M = Integer.parseInt(st.nextToken()); // M마리 상어
+		K = Integer.parseInt(st.nextToken()); // K초 후 냄새 사라짐
+
+		sharks = new HashMap<>();
+		int[][] map = new int[N][N];
+		prior = new int[M + 1][5][4];
+
+		for (int i = 0; i < N; i++) {
+			st = new StringTokenizer(br.readLine());
+			for (int j = 0; j < N; j++) {
+				map[i][j] = Integer.parseInt(st.nextToken());
+				if (map[i][j] > 0) {
+					sharks.put(map[i][j], new Point(i, j, K, 0));
+				}
+			}
+		}
+
+		st = new StringTokenizer(br.readLine());
+
+		for (int i = 1; i <= M; i++) {
+			sharks.get(i).dir = Integer.parseInt(st.nextToken());
+		}
+
+		// [상어번호][방향][우선순위 방향 4개]
+		for (int i = 1; i < M + 1; i++) {
+			for (int j = 1; j < 5; j++) {
+				st = new StringTokenizer(br.readLine());
+				for (int k = 0; k < 4; k++) {
+					prior[i][j][k] = Integer.parseInt(st.nextToken());
+
+				}
+
+			}
+		}
+
+		go(map);
+
+	}
+
+	private static void go(int[][] map) {
+
+		int[][][] arr = new int[N][N][2]; // 상어번호와 냄새
+		int time = 0;
+		while (true) {
+			if (time > 50) {
+				if (sharks.size() != 1) {
+					System.out.println("-1");
+					return;
+				}
+				System.out.println(time);
+				return;
+			}
+
+			ArrayList<Integer> remove = new ArrayList<>();
+
+			for (int s : sharks.keySet()) {
+				Point shark = sharks.get(s);
+				if (arr[shark.x][shark.y][0] != 0 && arr[shark.x][shark.y][0] < s) {
+					remove.add(s);
+					continue;
+				}
+				arr[shark.x][shark.y][0] = s;
+				arr[shark.x][shark.y][1] = shark.t;
+
+			}
+
+			if (!remove.isEmpty()) {
+				for (Integer s : remove) {
+					sharks.remove(s);
+				}
+			}
+//			System.out.println(sharks);
+
+			if (sharks.size() == 1) {
+				System.out.println(time);
+				return;
+				// 1번 상어만 남은 경우
+			}
+
+			getdir(arr);
+
+//			for (int i = 0; i < N; i++) {
+//				for (int j = 0; j < N; j++) {
+//					System.out.print(Arrays.toString(arr[i][j]));
+//					System.out.print(" ");
+//				}
+//				System.out.println();
+//			}
+//			System.out.println();
+
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					if (arr[i][j][0] != 0) {
+						if (--arr[i][j][1] == 0)
+							arr[i][j][0] = 0;
+					}
+				}
+			}
+
+			time++;
+		}
+
+	}
+
+	private static void getdir(int[][][] arr) {
+		// [상어번호][방향][우선순위 방향 4개]
+
+		for (int s : sharks.keySet()) {
+			Point shark = sharks.get(s);
+			int cx = shark.x;
+			int cy = shark.y;
+			int dir = shark.dir;
+			int cnt = 0;
+			boolean flag = false;
+
+			for (int i = 0; i < 4; i++) {
+				int nx = cx + dx[prior[s][dir][i]];
+				int ny = cy + dy[prior[s][dir][i]];
+
+				if (nx < 0 || nx >= N || ny < 0 || ny >= N) {
+					cnt++;
+					continue;
+				}
+
+				if (arr[nx][ny][0] == 0) { // 아무 냄새가 없는 방향
+					flag = true;
+					shark.x = nx;
+					shark.y = ny;
+					shark.dir = prior[s][dir][i];
+					break;
+				}
+				
+			}
+			
+			
+			if (!flag) {
+				for (int i = 0; i < 4; i++) {
+					int nx = cx + dx[prior[s][dir][i]];
+					int ny = cy + dy[prior[s][dir][i]];
+
+					if (nx < 0 || nx >= N || ny < 0 || ny >= N)
+						continue;
+
+					if (arr[nx][ny][0] == s) { // 자신의 냄새가 있는 칸
+//						System.out.println(nx + " " + ny);
+//						System.out.println(prior[s][dir][i]);
+						shark.x = nx;
+						shark.y = ny;
+						shark.dir = prior[s][dir][i];
+						break;
+					}
+
+				}
+			}
+
+		}
+	}
+
+}
